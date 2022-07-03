@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Test extends StatefulWidget {
-  //const ({Key? key}) : super(key: key);
-
+  Test(this.function,this.isDark);
+  Function function;
+  bool isDark;
   @override
   State<Test> createState() {
     return Stateful();
@@ -16,9 +17,7 @@ class Stateful extends State<Test>{
   bool isDark = false;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: isDark ? ThemeData.dark() : ThemeData.light(),
-      home: Scaffold(
+    return Scaffold(
         backgroundColor: backgroundcolor,
         appBar: AppBar(
           title: Text('stateful'),
@@ -90,11 +89,11 @@ class Stateful extends State<Test>{
                   Text(isDark ?'On' : 'Off'),
                   const Spacer(),
                   Switch(
-                      value: isDark,
+                      value: widget.isDark,
                       onChanged: (value){
-                        isDark = value;
+                        widget.function(value);
                         setState((){
-                          
+                          backgroundcolor = backgroundcolor == Colors.white ? Colors.black12 :Colors.white;
                         });
                       })
                 ],
@@ -134,8 +133,8 @@ class Stateful extends State<Test>{
 
           ],
         ),
-      ),
-    );
+      );
+
   }
 }
 
